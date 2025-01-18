@@ -13,7 +13,7 @@ function App() {
       >
         Mostrar EPG
       </button>
-      <Modal isOpen={showModal} width='80%' height='80%'>
+      <Modal isOpen={showModal} width='90%' height='90%'>
         <EpgViewer onClose={() => setShowModal(false)}/>
       </Modal>
     </div>

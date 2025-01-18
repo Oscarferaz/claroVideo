@@ -6,11 +6,6 @@ function Events({ events = [], onMouseEntered }) {
         return (hours * 100) + ((minutes * 60) / 100)
     }
 
-    const getEventPosition = (startProgam) => {
-        const position = convertToMinutes(startProgam?.split(" ")[1])
-        return isNaN(position) ? 0 : position
-    }
-
     const getEventWidth = (timeString) => {
         const width = convertToMinutes(timeString) 
         return isNaN(width) ? 0 : width
@@ -24,9 +19,8 @@ function Events({ events = [], onMouseEntered }) {
         events.map(({date_begin, date_end, duration}) => (
         <div
             key={date_begin}
-            className="absolute top-0 h-full border border-gray-200 p-2 overflow-hidden hover:bg-gray-100 transition-colors"
+            className="h-full border border-gray-200 p-2 overflow-hidden hover:bg-gray-100 transition-colors"
             style={{
-            left: getEventPosition(date_begin),
             width: getEventWidth(duration),
             }}
             onMouseEnter={() => handleHover({date_begin, date_end, duration})}

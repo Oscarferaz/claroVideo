@@ -1,45 +1,11 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { getEpgData } from "../../services/fetchData"
 import Hours from "./components/hours"
 import Channels from "./components/channel"
 import Events from "./components/events"
+import { processEpgData } from "../../utils/utils"
 
-const getHours = (data) => {
-    const allDates = data.flatMap(channel => 
-        channel.events.map(event => new Date(event.date_begin))
-    );
 
-    const sortedUniqueDates = [...new Set(allDates)]
-        .sort((a, b) => a - b)
-        .map(date => {
-            const roundedDate = new Date(date);
-            roundedDate.setMinutes(0, 0, 0);
-            return roundedDate;
-        });
-
-    return [
-        ...new Set(sortedUniqueDates
-            .map(date => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }))
-        )
-    ];
-}
-
-const processEpgData = (data) => {
-    const sortedData = data.map(({id, number, image, name, events}) => ({
-        id,
-        number,
-        image,
-        name,
-        events: events.sort((a, b) => new Date(a.date_begin) - new Date(b.date_begin)),
-    }));
-
-    const uniqueSortedStartTimes = getHours(sortedData)
-
-    return {
-        data: sortedData,
-        hours: uniqueSortedStartTimes
-    }
-}
 
 function EpgViewer ({onClose}) {
 
@@ -61,6 +27,10 @@ function EpgViewer ({onClose}) {
             }
         }
         getData()
+    }, [])
+
+    const handleMouseEnter = useCallback((program) => {
+        setProgramHovered(program);
     }, [])
 
     if(loading) return(
@@ -93,15 +63,15 @@ function EpgViewer ({onClose}) {
             </div>
 
             <div className="h-[50%] overflow-auto" style={{backgroundColor: 'rgb(50 49 49 / 43%)'}}>
-                <div className="sticky top-0 z-10 bg-black w-full">
+                <div className="sticky top-0 z-10 bg-black w-full w-max">
                     <Hours hours={hours}/>
                 </div>
             
-                    {data?.map(({ id, name, image, number, events }) => (
-                        <div key={id} className="flex">
+                    {data.map(({ id, name, image, number, events }) => (
+                        <div key={id} className="flex w-max">
                             <Channels channel={{ name, image, number }} />
-                            <div className="w-content flex">
-                                <Events events={events} onMouseEntered={(program) => setProgramHovered(program)}/>
+                            <div className="flex">
+                                <Events events={events} onMouseEntered={handleMouseEnter}/>
                             </div>
                         </div>
                     ))}

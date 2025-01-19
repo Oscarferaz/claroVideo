@@ -1,17 +1,12 @@
-function Events({ events = [], onMouseEntered }) {
+import { memo, useCallback } from "react";
+import { getWidth } from "../../../utils/utils";
 
-    const convertToMinutes = (timeString) => {
-        if (!timeString) return 0
-        const [hours, minutes] = timeString.split(":").map(Number);
-        return (hours * 100) + ((minutes * 60) / 100)
-    }
+function Events({ events = [], onMouseEntered = () => {}}) {
 
-    const getEventWidth = (timeString) => {
-        const width = convertToMinutes(timeString) 
-        return isNaN(width) ? 0 : width
-    }
-
-    const handleHover = (value) => onMouseEntered(value) 
+    const handleHover = useCallback(
+        (program) => onMouseEntered(program),
+        [onMouseEntered]
+    );
 
 
     return(
@@ -19,14 +14,15 @@ function Events({ events = [], onMouseEntered }) {
         events.map(({date_begin, date_end, duration}) => (
         <div
             key={date_begin}
-            className="h-full border border-gray-200 p-2 overflow-hidden hover:bg-gray-100 transition-colors"
+            className="h-full border border-slate-700 p-2 overflow-hidden hover:bg-gray-700 transition-colors"
             style={{
-            width: getEventWidth(duration),
+            width: getWidth(duration) + "px",
             }}
             onMouseEnter={() => handleHover({date_begin, date_end, duration})}
             onMouseLeave={() => handleHover(null)}
+            onClick={() => handleHover({date_begin, date_end, duration})}
         >
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-200">
                 {`${date_begin?.split(' ')[1]} - ${date_end?.split(' ')[1]}`}
             </p>
         </div>
@@ -34,4 +30,4 @@ function Events({ events = [], onMouseEntered }) {
     )
 }
 
-export default Events
+export default memo(Events)

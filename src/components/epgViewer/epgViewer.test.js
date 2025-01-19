@@ -3,16 +3,13 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import EpgViewer from './epgViewer';
 import * as fetchData from '../../services/fetchData';
-import { describe, test, expect, jest, beforeEach } from "@jest/globals";
+import { describe, test, expect, jest } from "@jest/globals";
 
-jest.mock('../../services/fetchData'); // Mock del servicio
+jest.mock('../../services/fetchData');
 
 describe('EpgViewer Component', () => {
   const mockOnClose = jest.fn();
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
 
   const mockData = [
     {

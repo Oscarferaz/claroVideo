@@ -1,5 +1,6 @@
+import { memo } from "react";
+
 function Hours({hours}) {
-    console.log(hours)
     return (
         <>
             <div className="flex sticky top-0 h-fit w-max">
@@ -16,4 +17,4 @@ function Hours({hours}) {
     );
 }
 
-export default Hours;
+export default memo(Hours);

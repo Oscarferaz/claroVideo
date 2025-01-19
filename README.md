@@ -1,8 +1,76 @@
-# React + Vite
+# Proyecto EPG Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EPG Viewer es una aplicación interactiva que permite visualizar datos de programación electrónica (EPG) de canales, incluyendo horarios y detalles de programas. Este proyecto está diseñado para facilitar la navegación y visualización de datos en tiempo real.
 
-Currently, two official plugins are available:
+## Tabla de contenido
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Requisitos previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Uso](#uso)
+  - [Modo desarrollo](#modo-desarrollo)
+  - [Generar la build de producción](#crear-build)
+  - [Ejecutar los tests](#tests)
+---
+
+## Requisitos previos
+
+Asegúrate de tener instalados los siguientes programas en tu máquina:
+
+- **Node.js** (versión 16 o superior)  
+  Puedes descargarlo desde [Node.js Official Website](https://nodejs.org/).  
+- **Git**  
+  Puedes descargarlo desde [Git Official Website](https://git-scm.com/).
+
+---
+
+## Instalación
+
+Sigue los pasos a continuación para configurar el proyecto:
+
+1. Clona el repositorio ejecutando el siguiente comando en tu terminal:
+
+    ```bash
+    git clone [url]
+    ```
+
+   Reemplaza `https://github.com/Oscarferaz/claroVideo.git` con la URL del repositorio.
+
+2. Ingresa al directorio del proyecto:
+
+    ```bash
+    cd nombre-del-proyecto
+    ```
+
+3. Instala las dependencias necesarias:
+
+    ```bash
+    npm install
+    ```
+
+---
+
+## Uso
+
+### Modo desarrollo
+
+Para iniciar la aplicación en modo desarrollo, ejecuta:
+
+```bash
+npm run dev
+```
+
+### Crear build
+
+Para crear la build de producción, ejecuta:
+
+```bash
+npm run build
+```
+
+## Test
+
+Para correr los test de prueba, ejecuta:
+
+```bash
+npm run test
+```

@@ -35,7 +35,7 @@ Sigue los pasos a continuación para configurar el proyecto:
 2. Ingresa al directorio del proyecto:
 
     ```bash
-    cd nombre-del-proyecto
+    cd claroVideo
     ```
 
 3. Instala las dependencias necesarias:

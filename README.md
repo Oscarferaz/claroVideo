@@ -30,11 +30,8 @@ Sigue los pasos a continuación para configurar el proyecto:
 1. Clona el repositorio ejecutando el siguiente comando en tu terminal:
 
     ```bash
-    git clone [url]
+    git clone [https://github.com/Oscarferaz/claroVideo.git]
     ```
-
-   Reemplaza `https://github.com/Oscarferaz/claroVideo.git` con la URL del repositorio.
-
 2. Ingresa al directorio del proyecto:
 
     ```bash

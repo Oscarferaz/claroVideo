@@ -48,8 +48,7 @@ function EpgViewer ({onClose}) {
         <div className="relative flex flex-col h-full text-white bg-black">
              <button
                 onClick={onClose}
-                className="absolute top-2 right-2 text-white rounded hover:bg-red-600 w-[15px]"
-                style={{zIndex: 2}}
+                className="absolute top-2 right-2 text-white rounded hover:bg-red-600 w-[15px] z-2"
             >
                 X
             </button>
@@ -57,14 +56,13 @@ function EpgViewer ({onClose}) {
             <div className="h-[50%] flex flex-col justify-center p-2">
                 {
                     programHovered 
-                        ? (
+                        && (
                             <>
                                 <h3 className="font-bold text-lg">{programHovered.name}</h3>
                                 <p className="font-light text-xs">{`${programHovered.date_begin.split(' ')[1]} - ${programHovered.date_end.split(' ')[1]}`}</p> 
                                 <p className="font-light text-xs">{programHovered.description}</p>
                            </>
                         )  
-                        : (<p>No hay informacion</p>)
                 }
             </div>
 
@@ -73,14 +71,15 @@ function EpgViewer ({onClose}) {
                     <Hours date={filterDate} handleClick={handleFilterDate}/>
                 </div>
             
-                    {data.map(({ id, name, image, number, events }) => (
-                        <div key={id} className="flex w-max">
-                            <Channels channel={{ name, image, number }} />
-                            <div className="flex">
-                                <Events currentDate={filterDate} events={events} onMouseEntered={handleMouseEnter}/>
-                            </div>
+                {data.map(({ id, name, image, number, events }) => (
+                    <div key={id} className="flex w-max">
+                        <Channels channel={{ name, image, number }} />
+                        <div className="flex">
+                            <Events currentDate={filterDate} events={events} onMouseEntered={handleMouseEnter}/>
                         </div>
-                    ))}
+                    </div>
+                ))}
+
             </div>
         </div>
     )

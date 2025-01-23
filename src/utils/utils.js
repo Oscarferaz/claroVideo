@@ -41,7 +41,7 @@ export const adjustEventToToday = (date_begin, date_end, currentDate) => {
     const actualStart = eventStart < todayStart ? todayStart : eventStart;
     const actualEnd = eventEnd > todayEnd ? todayEnd : eventEnd;
     
-    return ((actualEnd - actualStart) / (1000 * 60 * 60) * 1200); // Convertir al formato ISO
+    return ((actualEnd - actualStart) / (1000 * 60 * 60) * 500); // Convertir al formato ISO
 }
 
 export const  addDaysToDate =(dateString, daysToAdd) => {
@@ -75,5 +75,5 @@ export const processEpgData = (data) => {
 export const getWidth = (timeString) => {
     if (!timeString) return 0
     const [hours, minutes] = timeString.split(":").map(Number);
-    return (hours * 1200) + ((minutes * 1200) / 60)
+    return (hours * 500) + ((minutes * 500) / 60)
 }

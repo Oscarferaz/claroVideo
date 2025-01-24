@@ -4,6 +4,8 @@ import Hours from "./components/hours"
 import Channels from "./components/channel"
 import Events from "./components/events"
 import { addDaysToDate, getCurrentDateTime, processEpgData } from "../../utils/utils"
+import ChangeDateButtons from "./components/changeDateButtons"
+import DateViewer from "./components/dateViewer"
 
 
 
@@ -67,8 +69,10 @@ function EpgViewer ({onClose}) {
             </div>
 
             <div className="h-[50%] overflow-auto" style={{backgroundColor: 'rgb(50 49 49 / 43%)'}}>
-                <div className="sticky top-0 z-10 bg-black w-full w-max">
-                    <Hours date={filterDate} handleClick={handleFilterDate}/>
+                <div className="sticky top-0 z-10 bg-black w-full w-max flex">
+                    <DateViewer date={filterDate}/>
+                    <Hours handleClick={handleFilterDate}/>
+                    <ChangeDateButtons changeDate={handleFilterDate}/>
                 </div>
             
                 {data.map(({ id, name, image, number, events }) => (

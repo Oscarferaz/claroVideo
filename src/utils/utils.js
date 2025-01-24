@@ -35,13 +35,13 @@ export const adjustEventToToday = (date_begin, date_end, currentDate) => {
     const todayEnd = new Date(todayStart);
     todayEnd.setHours(23, 59, 59);
 
-    const eventStart = parseDateISO(date_begin); // Convertir al formato ISO
+    const eventStart = parseDateISO(date_begin); 
     const eventEnd = parseDateISO(date_end);
     
     const actualStart = eventStart < todayStart ? todayStart : eventStart;
     const actualEnd = eventEnd > todayEnd ? todayEnd : eventEnd;
     
-    return ((actualEnd - actualStart) / (1000 * 60 * 60) * 500); // Convertir al formato ISO
+    return ((actualEnd - actualStart) / (1000 * 60 * 60) * 500); 
 }
 
 export const  addDaysToDate =(dateString, daysToAdd) => {

@@ -6,6 +6,7 @@ import Events from "./components/events"
 import { addDaysToDate, getCurrentDateTime, processEpgData } from "../../utils/utils"
 import ChangeDateButtons from "./components/changeDateButtons"
 import DateViewer from "./components/dateViewer"
+import ProgramDetails from "./components/programDetails"
 
 
 
@@ -21,7 +22,7 @@ function EpgViewer ({onClose}) {
             try{
                 setLoading(true)
                 const epgData = await getEpgData(filterDate)
-                const data = processEpgData(epgData)
+                const data = processEpgData(epgData, filterDate)
                 setData(data)
                 setLoading(false)
             }catch(e){
@@ -56,34 +57,27 @@ function EpgViewer ({onClose}) {
             </button>
 
             <div className="h-[50%] flex flex-col justify-center p-2">
-                {
-                    programHovered 
-                        && (
-                            <>
-                                <h3 className="font-bold text-lg">{programHovered.name}</h3>
-                                <p className="font-light text-xs">{`${programHovered.date_begin.split(' ')[1]} - ${programHovered.date_end.split(' ')[1]}`}</p> 
-                                <p className="font-light text-xs">{programHovered.description}</p>
-                           </>
-                        )  
-                }
+                <ProgramDetails program={programHovered}/>
             </div>
 
             <div className="h-[50%] overflow-auto" style={{backgroundColor: 'rgb(50 49 49 / 43%)'}}>
-                <div className="sticky top-0 z-10 bg-black w-full w-max flex">
-                    <DateViewer date={filterDate}/>
-                    <Hours handleClick={handleFilterDate}/>
-                    <ChangeDateButtons changeDate={handleFilterDate}/>
-                </div>
-            
-                {data.map(({ id, name, image, number, events }) => (
-                    <div key={id} className="flex w-max">
-                        <Channels channel={{ name, image, number }} />
-                        <div className="flex">
-                            <Events currentDate={filterDate} events={events} onMouseEntered={handleMouseEnter}/>
-                        </div>
-                    </div>
-                ))}
 
+            <div className="w-max">
+                <div className="sticky top-0 z-10 bg-black flex">
+                        <DateViewer date={filterDate}/>
+                        <Hours handleClick={handleFilterDate}/>
+                        <ChangeDateButtons changeDate={handleFilterDate}/>
+                    </div>
+                
+                    {data.map(({ id, name, image, number, events }) => (
+                        <div key={id} className="flex">
+                            <Channels channel={{ name, image, number }} />
+                            <div className="flex">
+                                <Events currentDate={filterDate} events={events} onMouseEntered={handleMouseEnter}/>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

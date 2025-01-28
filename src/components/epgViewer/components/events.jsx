@@ -1,17 +1,19 @@
-import { memo, useCallback } from "react"
-import { adjustEventToToday, getWidth } from "../../../utils/utils"
+import { memo, useCallback,  } from "react"
 
-function Events({ currentDate, events = [], onMouseEntered = () => {} }) {
+function Events({ events = [], onMouseEntered = () => {} }) {
+    
   const handleHover = useCallback((program) => onMouseEntered(program), [onMouseEntered])
 
-  return events.map(({ date_begin, date_end, duration, name, description }, index) => {
+  return events.map(({ date_begin, date_end, name, description, width, channelId }) => {
+
+   
 
     return (
       <div
-        key={date_begin}
+        key={`${date_begin}-${channelId}`}
         className={`h-full border border-slate-700 overflow-hidden transition-colors hover:bg-gray-700`}
         style={{
-          width: index === 0 || index === events.length - 1 ? `${adjustEventToToday(date_begin, date_end, currentDate)}px` : `${getWidth(duration)}px`,
+          width: `${width}px`
         }}
         onMouseEnter={() => handleHover({ date_begin, date_end, name, description })}
         onMouseLeave={() => handleHover(null)}

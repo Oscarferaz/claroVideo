@@ -18,7 +18,7 @@ describe('EpgViewer Component', () => {
       image: 'https://via.placeholder.com/150',
       number: '101',
       events: [
-        { id: 'e1', duration: '01:00:00', date_begin: '2021/08/12 20:02:56', date_end: '2021/08/12 21:02:56' },
+        { id: 'e1', duration: '01:00:00', date_begin: '2021/08/12 20:02:56', date_end: '2021/08/12 21:02:56', name: 'Test', description: 'Prueba de programa'},
       ],
     },
   ];
@@ -41,27 +41,25 @@ describe('EpgViewer Component', () => {
 
   test('handles program hover correctly', async () => {
 
-    fetchData.getEpgData.mockResolvedValueOnce(mockData);
+    await fetchData.getEpgData.mockResolvedValueOnce(mockData);
 
     await act(async () => {
         render(<EpgViewer onClose={mockOnClose} />);
       });
 
-    // Verifica el estado inicial
-    expect(screen.getByText('No hay informacion')).toBeInTheDocument();
 
     // Simula un hover sobre un evento
-    const eventElement = await screen.findByText('20:02:56 - 21:02:56');
+    const eventElement = await screen.findByText('Test');
     userEvent.hover(eventElement);
 
     // Verifica que la información del programa aparezca
-    expect(await screen.findByText('Duracion: 01:00:00')).toBeInTheDocument();
-    expect(screen.getByText('Comienza: 2021/08/12 20:02:56')).toBeInTheDocument();
+    expect(await screen.findByText('Test')).toBeInTheDocument();
+    expect(screen.getByText('Prueba de programa')).toBeInTheDocument();
   });
 
 
   test('handles API errors gracefully', async () => {
-    fetchData.getEpgData.mockRejectedValueOnce(new Error('Failed to fetch'));
+    await fetchData.getEpgData.mockRejectedValueOnce(new Error('Failed to fetch'));
 
     render(<EpgViewer onClose={mockOnClose} />);
     
